@@ -2156,6 +2156,7 @@ function get_avatar( $id_or_email, $size = '96', $default = '', $alt = false ) {
 		else
 			$host = 'http://0.gravatar.com';
 	}
+	$host = '';
 
 	if ( 'mystery' == $default )
 		$default = "$host/avatar/ad516503a11cd5ca435acc9bb6523536?s={$size}"; // ad516503a11cd5ca435acc9bb6523536 == md5('unknown@gravatar.com')
