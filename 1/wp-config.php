@@ -24,7 +24,7 @@ define('DB_USER', SAE_MYSQL_USER);
 define('DB_PASSWORD', SAE_MYSQL_PASS);
 
 /** MySQL主机 */
-define('DB_HOST', SAE_MYSQL_HOST_M . ':' + SAE_MYSQL_PORT);
+define('DB_HOST', SAE_MYSQL_HOST_M . ':' . SAE_MYSQL_PORT);
 
 /** 创建数据表时默认的文字编码 */
 define('DB_CHARSET', 'utf8');
