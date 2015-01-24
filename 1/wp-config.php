@@ -32,11 +32,6 @@ define('DB_CHARSET', 'utf8');
 /** 数据库整理类型。如不确定请勿更改 */
 define('DB_COLLATE', '');
 
-var_dump(DB_NAME);
-var_dump(DB_USER);
-var_dump(DB_PASSWORD);
-var_dump(DB_HOST);
-
 /**#@+
  * 身份认证密钥与盐。
  *
