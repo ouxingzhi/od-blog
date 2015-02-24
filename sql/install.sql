@@ -25,6 +25,7 @@ drop table if exists od_article;
 create table if not exists od_article(
     `id` int(11) unsigned not null auto_increment primary key comment "文章id",
     `title` varchar(100) not null default "" comment "标题",
+    `entitle` varchar(150) not null default "" comment "英文标题",
     `image` varchar(200) not null default "" comment "图片",
     `kind` int(11) unsigned  not null default 0 comment "分类",
     `summary` varchar(400) not null default "" comment "描述",

@@ -40,8 +40,14 @@ ul,ol,li{ list-style:none; }
 
 table.blog-edit{ width:100%; table-layout:fixed; }
 table.blog-edit .c1{ width:60px; }
-table.blog-edit .input{ margin:0px; }
+table.blog-edit .input{ margin:0px; width:100%;}
 table.blog-edit textarea{ width:100%; margin:0px; height:300px; }
 table.blog-edit textarea#summary{ height:60px; }
 
 #imagebox img{width:100px;}
+
+.submit{ height:30px; width:100px; margin:0px; margin-top:10px;}
+
+
+.alert-parent{ position:relative; }
+.alert-box{ width:300px; height:300px; position:absolute; left:50%; top:50%; margin-top:-150px; margin-left:-150px; margin-top:50px; text-align:center;}

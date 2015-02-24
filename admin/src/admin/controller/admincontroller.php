@@ -3,10 +3,14 @@
 namespace Admin\Controller;
 
 use Fw\Core\Controller;
+use Admin\View\AdminView;
 
 class AdminController extends Controller{
     public function __construct(){
         
+    }
+    public function __getView($viewPath,$layoutPath){
+        return new AdminView($viewPath,$layoutPath);
     }
     protected function __before($controller,$action){
         parent::__before($controller,$action);

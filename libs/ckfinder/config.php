@@ -1,4 +1,9 @@
 <?php
+
+include_once __DIR__ . "/../../loadlib.php";
+
+use Fw\Core\Session;
+
 /*
  * ### CKFinder : Configuration File - Basic Instructions
  *
@@ -29,8 +34,8 @@ function CheckAuthentication()
 	// ... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
 	// user logs in your system. To be able to use session variables don't
 	// forget to add session_start() at the top of this file.
-
-	return true;
+    $session = new Session();
+	return !!$session->get('userinfo');
 }
 
 // LicenseKey : Paste your license key here. If left blank, CKFinder will be

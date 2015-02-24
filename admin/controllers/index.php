@@ -11,12 +11,13 @@ use OdBlog\Model\UserModel;
 class Index extends AdminController{
 
 	public function indexAction($p1=0,$p2=0){
+        $res = $this->getResponse();
         if(!$this->isLogin()){
             $res->location('/admin/login');
             return false;
         }
         $session = $this->getSession();
-        $res = $this->getResponse();
+        
         $userinfo = $session->get('userinfo');
         if(!$userinfo){
             $res->location('/admin/login');

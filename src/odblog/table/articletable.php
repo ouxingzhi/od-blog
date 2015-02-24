@@ -8,6 +8,8 @@ class ArticleTable extends Mysql{
     
     const ID = 'id';
     const TITLE = 'title';
+    const ENTITLE = 'entitle';
+    const IMAGE = 'image';
     const KIND = 'kind';
     const SUMMARY = 'summary';
     const UID = 'uid';
@@ -27,6 +29,8 @@ class ArticleTable extends Mysql{
 			static::__FIELD=> array(
 				    static::ID=>'int',
                     static::TITLE=>'string',
+                    static::ENTITLE=>'string',
+                    static::IMAGE=>'string',
                     static::KIND=>'int',
                     static::SUMMARY=>'string',
                     static::UID=>'int',

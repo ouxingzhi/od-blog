@@ -12,7 +12,6 @@
 <script>
     $(function(){
         var errorbox = $('#error-box');
-        $('input[type=submit]').button();
         $('#loginform').on('submit',function(e){
             errorbox.hide();
             var $this = $(this),

@@ -50,7 +50,9 @@
 <script>
     var listbox = $('#list-box');
     listbox.on('click','input.edit',function(e){
-        
+        var dom = $(e.currentTarget),
+            id = dom.attr('data-id');
+        location.href = "<?=$this->g('web_root','/')?>admin/blog/edit/" + id;
     });
     listbox.on('click','input.del',function(e){
         var dom = $(e.currentTarget);

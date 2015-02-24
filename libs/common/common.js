@@ -17,4 +17,25 @@ void function(){
         d.showModal();
     }
     window.toast = toast;
+    
+    function countDown(seconds,secfn,endfn){
+        if(!seconds){
+            endfn && endfn();
+            return;
+        }
+        var timer,end=false;
+        function loop(){
+            secfn && secfn(seconds);
+            seconds--;
+            if(seconds < 0){
+                endfn && endfn();
+                return;
+            }
+            timer = setTimeout(function(){
+                loop();
+            },1000);
+        }
+        loop();
+    }
+    window.countDown = countDown;
 }()

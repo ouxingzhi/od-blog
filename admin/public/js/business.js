@@ -16,4 +16,21 @@ void function(){
         });
     }
     window.deleteArticle = deleteArticle;
+    
+    //删除分类
+    function deleteKind(ids,callback,error){
+        var url = baseurl + 'admin/kind/del';
+        $.ajax(url,{
+            data:{ids:ids},
+            type:'post',
+            dataType:'json',
+            success:function(data){
+                callback && callback(data);
+            },
+            error:function(e){
+                error && error(e);
+            }
+        });
+    }
+    window.deleteKind = deleteKind;
 }();
