@@ -45,6 +45,14 @@ class Blog extends AdminController{
         $this->assign('pageinfo',$pageinfo);
         $this->assign('urlparam',$param);
         
+        $akTable = new ArticleKindDefineTable();
+        $kinds = $akTable->find();
+        $kindsMap = array();
+        foreach($kinds as $i=>$kind){
+            $kindsMap[$kind['id']] = $kind;
+        }
+        $this->assign('kinds',$kindsMap);
+        
         return true;
     }
     public function addAction(){
@@ -73,6 +81,9 @@ class Blog extends AdminController{
         $model = new ArticleModel();
         
         $model->set(ArticleTable::TITLE,$data['title']);
+        if(!$data['entitle']){
+            $data['entitle'] = preg_replace('/\s+/','-',PinYin::getFull($data['title']));
+        }
         $model->set(ArticleTable::ENTITLE,$data['entitle']);
         $model->set(ArticleTable::KIND,$data['kind']);
         $model->set(ArticleTable::SUMMARY,$data['summary']);
@@ -85,6 +96,9 @@ class Blog extends AdminController{
         $model = new ArticleModel();
         $model->set(ArticleTable::ID,$data['id']);
         $model->set(ArticleTable::TITLE,$data['title']);
+        if(!$data['entitle']){
+            $data['entitle'] = preg_replace('/\s+/','-',PinYin::getFull($data['title']));
+        }
         $model->set(ArticleTable::ENTITLE,$data['entitle']);
         $model->set(ArticleTable::IMAGE,$data['image']);
         $model->set(ArticleTable::KIND,$data['kind']);

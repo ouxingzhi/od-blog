@@ -13,6 +13,9 @@
                      <tr>
                          <th class="c1">标题：</th>
                          <td class="c2"><input class="input" type="text" id="title" name="title" value="<?=$this->g('data.title')?>"></td>
+                     <tr>
+                         <th class="c1">英文标题：</th>
+                         <td class="c2"><input class="input" type="text" id="entitle" name="entitle" value="<?=$this->g('data.entitle')?>"></td>
                      </tr>
                      <tr>
                          <th>分类：</th>

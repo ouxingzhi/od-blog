@@ -9,19 +9,20 @@
                     <tr>
                         <th class="h1">选择</th>
                         <th class="h2">标题</th>
-                        <th class="h3">创建时间</th>
+                        <th class="h3">类型</th>
                         <th class="h4">修改时间</th>
                         <th class="h5">操作</th>
                     </tr>
                     <?php
                         $list = $this->g('list');
+                        $kindMap = $this->g('kinds',array());
                         if($list):
                         foreach($list as $i=>$r):
                     ?>
                     <tr>
                         <td class="c1"><input type="checkbox" class="selected" name="id[]" value="<?=$this->v($r,'id')?>"/></td>
                         <td class="c2"><?=$this->v($r,'title');?></td>
-                        <td class="c3"><?=$this->v($r,'cdate');?></td>
+                        <td class="c3"><?=$this->v($kindMap,$r['kind'].'.name')?></td>
                         <td class="c4"><?=$this->v($r,'edate');?></td>
                         <td class="c5">
                             <input data-id="<?=$this->v($r,'id');?>" type="button" value="编辑" class="edit"/>
