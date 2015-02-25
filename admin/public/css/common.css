@@ -51,3 +51,7 @@ table.blog-edit textarea#summary{ height:60px; }
 
 .alert-parent{ position:relative; }
 .alert-box{ width:300px; height:300px; position:absolute; left:50%; top:50%; margin-top:-150px; margin-left:-150px; margin-top:50px; text-align:center;}
+
+.table-list td{ text-align:center; }
+.top-button-box{ padding:5px 0px 10px; }
+.user-add .c1{ text-align:right; }

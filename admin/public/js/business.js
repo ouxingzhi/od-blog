@@ -33,4 +33,21 @@ void function(){
         });
     }
     window.deleteKind = deleteKind;
+    
+    //删除用户
+    function deleteUser(ids,callback,error){
+        var url = baseurl + 'admin/user/del';
+        $.ajax(url,{
+            data:{ids:ids},
+            type:'post',
+            dataType:'json',
+            success:function(data){
+                callback && callback(data);
+            },
+            error:function(e){
+                error && error(e);
+            }
+        });
+    }
+    window.deleteUser = deleteUser;
 }();
