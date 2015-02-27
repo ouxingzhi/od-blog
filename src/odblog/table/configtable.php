@@ -11,7 +11,7 @@ class ConfigTable extends Mysql{
     const VALUE = 'value';
     const TITLE = 'title';
     const DESC = 'desc';
-    const KING = 'king';
+    const KIND = 'kind';
     
 	/**
 	 * get table schema
@@ -27,7 +27,7 @@ class ConfigTable extends Mysql{
 				static::VALUE=>'string',
 				static::TITLE=>'string',
                 static::DESC=>'string',
-                static::KING=>'int'
+                static::KIND=>'int'
 			)
 		);
 	}
