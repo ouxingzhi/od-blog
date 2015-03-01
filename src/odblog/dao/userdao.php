@@ -11,7 +11,7 @@ class UserDao{
         $info = $userTable->findOne('*',array(
             UserTable::NAME=>$username,
             UserTable::__AND,
-            UserTable::PASSWORD=>$password
+            UserTable::PASSWORD=>md5($password)
         ));
         return $info;
     }

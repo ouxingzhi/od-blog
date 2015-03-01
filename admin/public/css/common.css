@@ -61,3 +61,7 @@ table.blog-edit textarea#summary{ height:60px; }
 
 .kind-list li a{ display:block; text-decoration:none; }
 .kind-list li.cur{ background:#999; color:#fff }
+
+.tl,.table-list .tl{ text-align:left; }
+.tr,.table-list .tr{ text-align:right; }
+.tc,.table-list .tc{ text-align:center; }

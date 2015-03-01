@@ -23,8 +23,8 @@
                     <tr>
                         <th class="h2">标题</th>
                         <th class="h2">名称</th>
-                        <th class="h3">说明</th>
-                        <th class="h4">值</th>
+                        <th class="h3">值</th>
+                        <th class="h4">操作</th>
                     </tr>
                     <?php
                     $list = $this->g('list',array());
@@ -33,16 +33,26 @@
                     <tr>
                         <td><?=$cf['title']?></td>
                         <td><?=$cf['key']?></td>
-                        <td><?=$cf['desc']?></td>
                         <td><input type="text" name="id[<?=$cf['id']?>]" value="<?=$cf['value']?>"/></td>
+                        <td>
+                            <input type="button" value="编辑" class="edit" data-id="<?=$cf['id']?>"/>
+                            <input type="button" value="删除" class="del" data-id="<?=$cf['id']?>"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="tl">
+                            <strong>介绍: </strong><?=$cf['desc']?>
+                        </td>
                     </tr>
                     <?php
                     endforeach;
                     ?>
                 </table>
+                <?php if($list):?>
                 <div>
                     <input type="submit" value="提交"/>
                 </div>
+                <?php endif;?>
             </div>
             </form>
         </div>
@@ -50,7 +60,17 @@
 </div>
 <?php $this->startSection();?>
 <script>
-
+    var listbox = $('#list-box');
+    listbox.on('click','.del',function(e){
+        var id = $(e.currentTarget).attr('data-id');
+        toast('确定删除吗？',function(){
+            location.href = "<?=$this->g('web_root','/')?>admin/config/del/"+id;
+        });
+    });
+    listbox.on('click','.edit',function(e){
+        var id = $(e.currentTarget).attr('data-id');
+        location.href = "<?=$this->g('web_root','/')?>admin/config/edit/"+id;
+    });
 </script>
 
 <?php $this->endSection('scripts');?>

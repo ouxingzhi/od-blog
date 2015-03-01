@@ -107,7 +107,7 @@ class User extends AdminController{
                 return true;
             }
             $this->updatePwd($data);
-            $this->getView()->alert('修改用户成功',$this->get('web_root','/') . 'admin/user/list');
+            $this->getView()->alert('修改密码成功',$this->get('web_root','/') . 'admin/user/list');
             return false;
         }
         
@@ -176,7 +176,7 @@ class User extends AdminController{
                     'message'=>'用户不存在!'
                 );
             }
-            if($user['password'] !== $data['spassword']){
+            if($user['password'] !== md5($data['spassword'])){
                 return array(
                     'code'=>1,
                     'message'=>'原密码不正确!'
@@ -198,12 +198,19 @@ class User extends AdminController{
         }
         return false;
     }
+    private function updatePwd($data){
+        $model = new UserModel();
+        $model->set(UserTable::ID,$data['id']);
+        $model->set(UserTable::PASSWORD,md5($data['password']));
+        
+        $model->update();
+    }
     private function addUser($data){
         $model = new UserModel();
         
         $model->set(UserTable::NAME,$data['name']);
         $model->set(UserTable::NICKNAME,$data['nickname']);
-        $model->set(UserTable::PASSWORD,$data['password']);
+        $model->set(UserTable::PASSWORD,md5($data['password']));
         
         $model->save();
     }

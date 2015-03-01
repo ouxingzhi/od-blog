@@ -7,6 +7,7 @@
            <form method="post" action="<?=$this->g('web_root','/')?>admin/config/typelist">
             <div class="blog-list" id="list-box">
                <div>
+                <input type="button" value="返回" onclick="location.href='<?=$this->g('web_root','/')?>admin/config/list'"/>
                 <input type="button" onclick="location.href='<?=$this->g('web_root','/')?>admin/config/addtype'" value="添加配置类型"/>
             </div>
                 <table class="table-list">
@@ -22,6 +23,7 @@
                         <td><?=$item['title']?></td>
                         <td>
                             <input class="sort" type="text" name="id[<?=$item['id']?>]" value="<?=$item['sort']?>"/>
+                            <input type="button" value="修改" class="edit" data-id="<?=$item['id']?>"/>
                             <input type="button" value="删除" class="del" data-id="<?=$item['id']?>"/>
                         </td>
                     </tr>
@@ -49,6 +51,11 @@
         toast('确定要删除吗！',function(){
             location.href = "<?=$this->g('web_root','/')?>admin/config/deltype/" + id;
         });
+    });
+    listbox.on('click','.edit',function(e){
+        var dom = $(e.currentTarget);
+        var id = dom.attr('data-id');
+        location.href = "<?=$this->g('web_root','/')?>admin/config/edittype/" + id;
     });
 </script>
 

@@ -76,6 +76,51 @@ class Config extends AdminController{
         
         return true;
     }
+    public function editAction($id=''){
+        
+        $table = new ConfigKindTable();
+        $kindlist = $table->find('*',null,sprintf("`%s` DESC,`%s` DESC",ConfigKindTable::SORT,ConfigKindTable::ID));
+        $this->assign('kindlist',$kindlist);
+        
+        $this->assign('type','edit');
+        
+        $type = $this->getRequest()->post('type');
+        if($type === 'edit'){
+            $data = $this->getPostData();
+            
+            if($errorinfo = $this->verifyPostData($data,$type)){
+                $this->assign('error-message',$errorinfo['message']);
+                $this->assign('data',$data);
+                return 'config/add.php';
+            }
+            
+            $this->update($data);
+            $this->getView()->alert('修改配置成功!',$this->get('web_root','/').'admin/config/list');
+            return false;
+        }
+        $id = intval($id);
+        if(!$id){
+            $this->getView()->alert('配置不存在!',$this->get('web_root','/').'admin/config/list');
+            return false;
+        }
+        $table = new ConfigTable();
+        $data = $table->findOne('*',array(ConfigTable::ID=>$id));
+        if(empty($data)){
+            $this->getView()->alert('配置不存在!',$this->get('web_root','/').'admin/config/list');
+            return false;
+        }
+        $this->assign('data',$data);
+        return 'config/add.php';
+    }
+    public function delAction($id=''){
+        $id = intval($id);
+        
+        $table = new ConfigTable();
+        $table->delete(array(ConfigTable::ID=>$id));
+        
+        $this->getView()->alert('删除成功!',$this->get('web_root','/').'admin/config/list');
+        return false;
+    }
     public function typelistAction(){
         $table = new ConfigKindTable();
         $type = $this->getRequest()->post('type');
@@ -116,7 +161,9 @@ class Config extends AdminController{
         
         return true;
     }
-    public function edittypeAction(){
+    public function edittypeAction($id=''){
+        
+
         
         $this->assign('type','edittype');
         
@@ -127,15 +174,29 @@ class Config extends AdminController{
             if($errorinfo = $this->verifyPostData($data,$type)){
                 $this->assign('error-message',$errorinfo['message']);
                 $this->assign('data',$data);
-                return true;
+                return 'config/addtype.php';
             }
             
-            $this->saveType($data);
+            $this->updateType($data);
             $this->getView()->alert('修改配置类型成功!',$this->get('web_root','/').'admin/config/typelist');
             return false;
         }
+        $id = intval($id);
+        if(!$id){
+            $this->getView()->alert('参数错误!',$this->get('web_root','/').'admin/config/typelist');
+            return false;
+        }
+        $table = new ConfigKindTable();
+        $data = $table->findOne('*',array(
+            ConfigKindTable::ID=>$id
+        ));
+        if(empty($data)){
+            $this->getView()->alert('参数错误!',$this->get('web_root','/').'admin/config/typelist');
+            return false;
+        }
+        $this->assign('data',$data);
         
-        return true;
+        return 'config/addtype.php';
     }
     public function deltypeAction($id=0){
         $id = intval($id);
@@ -186,7 +247,7 @@ class Config extends AdminController{
         $model = new ConfigModel();
         
         $model->set(ConfigTable::ID,$data['id']);
-        $model->set(ConfigTable::KEY,$data['KEY']);
+        $model->set(ConfigTable::KEY,$data['key']);
         $model->set(ConfigTable::TITLE,$data['title']);
         $model->set(ConfigTable::VALUE,$data['value']);
         $model->set(ConfigTable::DESC,$data['desc']);

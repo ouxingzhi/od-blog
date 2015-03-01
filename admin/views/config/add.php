@@ -3,11 +3,14 @@
     <div class="container-bottom">
         <?php $this->insert('left.php');?>
         <div class="container-right">
-           <h2 class="column-title">添加配置</h2>
+           <h2 class="column-title"><?php if($this->g('type','add') == 'add'):?>添加<?php else:?>修改<?php endif;?>配置</h2>
             <div class="blog-list" id="list-box">
                  <div id="error-box" style="text-align:left">
                      <?=$this->g('error-message');?>
                  </div>
+                 <div>
+                    <input type="button" value="返回" onclick="location.href='<?=$this->g('web_root','/')?>admin/config/list'"/>
+                </div>
                  <form method="post" action="<?=$this->g('web_root','/')?>admin/config/<?=$this->g('type','add')?>">
                  <table class="">
                      <tr>
