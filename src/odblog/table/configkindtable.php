@@ -17,13 +17,13 @@ class ConfigKindTable extends Mysql{
 	 */
 	public function getSchema(){
 		return array(
-			static::__TABLE=>'od_user',
+			static::__TABLE=>'od_config_kind',
 			static::__PK=>static::ID,
 			static::__FIELD=> array(
 				static::ID=>'int',
 				static::TITLE=>'string',
 				static::DESC=>'string',
-                static::SORT=>'string'
+                static::SORT=>'int|999'
 			)
 		);
 	}

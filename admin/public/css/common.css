@@ -55,3 +55,9 @@ table.blog-edit textarea#summary{ height:60px; }
 .table-list td{ text-align:center; }
 .top-button-box{ padding:5px 0px 10px; }
 .user-add .c1{ text-align:right; }
+#list-box .sort{ width:30px; }
+.kind-list{ overflow:hidden; zoom:1; }
+.kind-list li{ float:left; height:30px; line-height:30px; border:1px solid #eee; padding:0px 5px; margin:5px; }
+
+.kind-list li a{ display:block; text-decoration:none; }
+.kind-list li.cur{ background:#999; color:#fff }

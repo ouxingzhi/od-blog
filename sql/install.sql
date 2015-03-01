@@ -75,11 +75,12 @@ drop table if exists od_config;
 
 create table if not exists od_config(
     `id` int(11) unsigned not null auto_increment primary key comment "配置 id",
-    `key` varchar(47) unique not null comment "配置 key",
+    `key` varchar(47) unique not null default "" comment "配置 key",
     `value` text null comment "配置内容",
     `title` varchar(47) not null default "" comment "标题",
     `desc` varchar(500) not null default "" comment "描述",
-    `king` int(11) unsigned not null default 0 comment "配置分类"
+    `king` int(11) unsigned not null default 0 comment "配置分类",
+    `sort` int(11) unsigned not null default 999 comment "排序"
 ) character set utf8 comment "配置表";
 
 #配置种类
@@ -89,7 +90,8 @@ drop table if exists od_config_king;
 create table if not exists od_config_kind(
     `id` int(11) unsigned not null auto_increment primary key comment "配置种类id",
     `title` varchar(47) not null default "" comment "配置种类标题",
-    `desc` varchar(500) not null default "" comment "配置种类描述" 
+    `desc` varchar(500) not null default "" comment "配置种类描述",
+    `sort` int(11) unsigned not null default 999 comment "排序"
 ) character set utf8 comment "配置种类";
 
 
