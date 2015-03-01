@@ -13,7 +13,7 @@ use OdBlog\Table\ArticleKindDefineTable;
 
 
 class Blog extends AdminController{
-    public function getDefaultAction(){
+    public function getDefaultActionName(){
         return 'list';   
     }
     protected function __before($controller,$action){

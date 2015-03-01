@@ -9,7 +9,8 @@ use OdBlog\Model\ConfigKindModel;
 
 
 class Config extends AdminController{
-    public function getDefaultAction(){
+    
+    public function getDefaultActionName(){
         return 'list';   
     }
     protected function __before($controller,$action){

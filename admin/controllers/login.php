@@ -5,13 +5,15 @@ use OdBlog\Dao\UserDao;
 
 
 class Login extends AdminController{
+    protected function __isSimpleMode(){
+        return true;   
+    }
 
-	public function indexAction(){
-        $args = func_get_args();
+	public function handleRequest(){
+
         $req = $this->getRequest();
         $res = $this->getResponse();
         $session = $this->getSession();
-        
         if($this->isLogin()){
             $res->location('/admin/index');
             return false;

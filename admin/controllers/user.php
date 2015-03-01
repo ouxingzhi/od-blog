@@ -12,7 +12,7 @@ use OdBlog\Model\UserModel;
 
 
 class User extends AdminController{
-    public function getDefaultAction(){
+    public function getDefaultActionName(){
         return 'list';   
     }
     protected function __before($controller,$action){

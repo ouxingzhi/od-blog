@@ -7,7 +7,7 @@ use OdBlog\Model\ArticleKindDefineModel;
 
 
 class Kind extends AdminController{
-    public function getDefaultAction(){
+    public function getDefaultActionName(){
         return 'list';   
     }
     protected function __before($controller,$action){
