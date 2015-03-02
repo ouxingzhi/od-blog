@@ -94,4 +94,16 @@ create table if not exists od_config_kind(
     `sort` int(11) unsigned not null default 999 comment "排序"
 ) character set utf8 comment "配置种类";
 
+drop table if exists od_channel;
+
+create table if not exists od_channel(
+    `id` int(11) unsigned not null auto_increment primary key comment "频道",
+    `name` varchar(100) not null default "" comment "频道名称",
+    `enname` varchar(100) not null default "" comment "频道英文名称",
+    `parent` int(11) unsigned not null default 0 comment "父级频道id",
+    `root`  int(11) unsigned not null default 0 comment "根级频道id",
+    `type` int(11) unsigned not null default 0 comment "类型",
+    `url` varchar(100) not null default "" comment "链接地址"
+) character set utf8 comment "频道表";
+
 
