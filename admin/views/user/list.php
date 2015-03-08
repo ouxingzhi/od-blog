@@ -37,7 +37,7 @@
                     </tr>
                     <?php endif;?>
                 </table>
-                <?php $this->insert('pagebar.php',array('baseurl'=>$this->g('web_root','/').'admin/blog/list/'));?>
+                <?php $this->insert('pagebar.php',array('baseurl'=>$this->g('app_root','/').'blog/list/'));?>
             </div>
         </div>
     </div>
@@ -48,17 +48,17 @@
     listbox.on('click','input.add',function(e){
         var dom = $(e.currentTarget),
             id = dom.attr('data-id');
-        location.href = "<?=$this->g('web_root','/')?>admin/user/add";
+        location.href = "<?=$this->g('app_root','/')?>user/add";
     });
     listbox.on('click','input.edit',function(e){
         var dom = $(e.currentTarget),
             id = dom.attr('data-id');
-        location.href = "<?=$this->g('web_root','/')?>admin/user/edit/" + id;
+        location.href = "<?=$this->g('app_root','/')?>user/edit/" + id;
     });
     listbox.on('click','input.editpwd',function(e){
         var dom = $(e.currentTarget),
             id = dom.attr('data-id');
-        location.href = "<?=$this->g('web_root','/')?>admin/user/editpwd/" + id;
+        location.href = "<?=$this->g('app_root','/')?>user/editpwd/" + id;
     });
     listbox.on('click','input.del',function(e){
         var dom = $(e.currentTarget);

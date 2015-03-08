@@ -5,6 +5,9 @@
         <div class="container-right">
            <h2 class="column-title">类型列表</h2>
             <div class="blog-list" id="list-box">
+                <div class="top-button-box">
+                    <input type="button" value="添加类型" onclick="location.href='<?=$this->get('app_root','/')?>kind/add'"/>
+                </div>
                 <table class="table-list">
                     <tr>
                         <th class="h2">标题</th>
@@ -41,7 +44,7 @@ var listbox = $('#list-box');
     listbox.on('click','input.edit',function(e){
         var dom = $(e.currentTarget),
             id = dom.attr('data-id');
-        location.href = "<?=$this->g('web_root','/')?>admin/kind/edit/" + id;
+        location.href = "<?=$this->g('app_root','/')?>kind/edit/" + id;
     });
     listbox.on('click','input.del',function(e){
         var dom = $(e.currentTarget);

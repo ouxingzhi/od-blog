@@ -1,3 +1,4 @@
+<?php use Fw\Config\Config;?>
 <div class="container">
     <?php $this->insert('top.php');?>
     <div class="container-bottom">
@@ -19,14 +20,16 @@
 
 <?php $this->startSection();?>
     <?php 
-        $jumpUrl = $this->g('jumpUrl',$this->g('web_root','/').'admin/');
+        $jumpUrl = $this->g('jumpUrl',$this->g('app_root','/').'');
         $sleep = $this->g('sleep','null');
+        
     ?>
     <script>
         var seconds = $('.seconds');
         var jumpUrl = '<?=$jumpUrl?>',
             sleep = <?=$sleep?>;
-        if(sleep != null){
+        var debug = <?=Config::get('debug','false')?>;
+        if(sleep != null && !debug){
             countDown(5,function(num){
                 seconds.html(num);
             },function(){

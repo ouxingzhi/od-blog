@@ -65,3 +65,5 @@ table.blog-edit textarea#summary{ height:60px; }
 .tl,.table-list .tl{ text-align:left; }
 .tr,.table-list .tr{ text-align:right; }
 .tc,.table-list .tc{ text-align:center; }
+
+.config-table .c1{ width:60px; text-align:left; }

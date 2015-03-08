@@ -22,7 +22,7 @@ class Blog extends AdminController{
         }
         //如果未登录则跳登录页
         if(!$this->isLogin()){
-            $this->getResponse()->location('/admin/login');
+            $this->getResponse()->location($this->get('app_root') . 'login');
             return true;
         }
     }
@@ -40,6 +40,7 @@ class Blog extends AdminController{
         $pageinfo = Page::info($page,$total,$count,7);
         
         $list = $articleTable->find('*',array(),ArticleTable::ID.' DESC',array($pageinfo['offset'],$pageinfo['count']));
+        
         
         $this->assign('list',$list);
         $this->assign('pageinfo',$pageinfo);
@@ -62,8 +63,8 @@ class Blog extends AdminController{
         $this->assign('kinds',$kinds);
         $this->assign('type','add');
         
-        $action = $this->getRequest()->post('action');
-        if($action){
+        $type = $this->getRequest()->post('type');
+        if($type === 'add'){
             $data = $this->getAddPostData();
             if($errinfo = $this->verifyPostData($data,'add')){
                 $this->assign('error-message',$errinfo['message']);
@@ -71,7 +72,7 @@ class Blog extends AdminController{
                 return true;
             }
             $this->addArticle($data);
-            $this->getView()->alert("添加完成",$this->get('web_root','/').'admin/blog/list');
+            $this->getView()->alert("添加完成",$this->get('app_root').'blog/list');
             return false;
         }
         
@@ -87,8 +88,8 @@ class Blog extends AdminController{
         $model->set(ArticleTable::ENTITLE,$data['entitle']);
         $model->set(ArticleTable::KIND,$data['kind']);
         $model->set(ArticleTable::SUMMARY,$data['summary']);
-        $model->set(ArticleTable::CDATE,date('Y-m-d H:i:s'));
-        $model->set(ArticleTable::EDATE,date('Y-m-d H:i:s'));
+        $model->set(ArticleTable::CDATE,time());
+        $model->set(ArticleTable::EDATE,time());
         $model->set(ArticleTable::BODY,$data['body']);
         $model->save();
     }
@@ -103,7 +104,7 @@ class Blog extends AdminController{
         $model->set(ArticleTable::IMAGE,$data['image']);
         $model->set(ArticleTable::KIND,$data['kind']);
         $model->set(ArticleTable::SUMMARY,$data['summary']);
-        $model->set(ArticleTable::EDATE,date('Y-m-d H:i:s'));
+        $model->set(ArticleTable::EDATE,time());
         $model->set(ArticleTable::BODY,$data['body']);
         $model->update();
     }
@@ -163,11 +164,11 @@ class Blog extends AdminController{
         $this->assign('kinds',$kinds);
         $this->assign('type','edit');
         
-        $action = $this->getRequest()->post('action');
-        if($action != 'edit'){
+        $type = $this->getRequest()->post('type');
+        if($type != 'edit'){
             $id = intval($id);
             if(!$id){
-                $this->getView()->alert("无有效id！",$this->get('web_root','/').'admin/blog/list');
+                $this->getView()->alert("无有效id！",$this->get('app_root').'blog/list');
                 return false;
             }
             $artTable = new ArticleTable();
@@ -175,7 +176,7 @@ class Blog extends AdminController{
                 ArticleTable::ID=>$id
             ));
             if(!$data){
-                $this->getView()->alert("无有效id！",$this->get('web_root','/').'admin/blog/list');
+                $this->getView()->alert("无有效id！",$this->get('app_root').'blog/list');
                 return false;
             }
             $this->assign('data',$data);
@@ -188,7 +189,7 @@ class Blog extends AdminController{
                 return true;
             }
             $this->updateArticle($data);
-            $this->getView()->alert("修改完成",$this->get('web_root','/').'admin/blog/list');
+            $this->getView()->alert("修改完成",$this->get('app_root').'blog/list');
             return false;
         }
     }

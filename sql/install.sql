@@ -30,8 +30,8 @@ create table if not exists od_article(
     `kind` int(11) unsigned  not null default 0 comment "分类",
     `summary` varchar(400) not null default "" comment "描述",
     `uid` int(11) unsigned  not null default 0 comment "创建用户id",
-    `cdate` timestamp not null default 0 comment "创建时间",
-    `edate` timestamp not null default 0 comment "修改时间",
+    `cdate` int(11) unsigned not null default 0 comment "创建时间",
+    `edate` int(11) unsigned not null default 0 comment "修改时间",
     `sort`  int(11) unsigned not null default 0 comment "排序值",
     `body` text null comment "正文"
 ) character set utf8 comment "文章表";
@@ -44,7 +44,7 @@ create table if not exists od_article_kind_define(
     `id` int(11) unsigned not null auto_increment primary key comment "分类id",
     `name` varchar(47) not null default "" comment "分类标题",
     `sort` int(11) unsigned not null default 0 comment "排序值",
-    `cdate` timestamp not null default 0 comment "创建时间"
+    `cdate` int(11) unsigned not null default 0 comment "创建时间"
 ) character set utf8 comment "文章种类定义表";
 
 #文章tag定义表
@@ -55,7 +55,7 @@ create table if not exists od_article_tag_define(
     `id` int(11) unsigned not null auto_increment primary key comment "tag id",
     `name` varchar(47) not null default "" comment "tag值",
     `sort` int(11) unsigned not null default 0 comment "排序值",
-    `cdate` timestamp not null default 0 comment "创建时间"
+    `cdate` int(11) unsigned not null default 0 comment "创建时间"
 ) character set utf8 comment "文档 tag定义表";
 
 #文章tag对应表
@@ -79,8 +79,10 @@ create table if not exists od_config(
     `value` text null comment "配置内容",
     `title` varchar(47) not null default "" comment "标题",
     `desc` varchar(500) not null default "" comment "描述",
-    `king` int(11) unsigned not null default 0 comment "配置分类",
-    `sort` int(11) unsigned not null default 999 comment "排序"
+    `kind` int(11) unsigned not null default 0 comment "配置分类",
+    `sort` int(11) unsigned not null default 999 comment "排序",
+    `type` int(1) unsigned not null default 0 comment "类型",
+    `define` text null comment "类型定义"
 ) character set utf8 comment "配置表";
 
 #配置种类
@@ -96,14 +98,18 @@ create table if not exists od_config_kind(
 
 drop table if exists od_channel;
 
-create table if not exists od_channel(
-    `id` int(11) unsigned not null auto_increment primary key comment "频道",
-    `name` varchar(100) not null default "" comment "频道名称",
-    `enname` varchar(100) not null default "" comment "频道英文名称",
-    `parent` int(11) unsigned not null default 0 comment "父级频道id",
-    `root`  int(11) unsigned not null default 0 comment "根级频道id",
-    `type` int(11) unsigned not null default 0 comment "类型",
-    `url` varchar(100) not null default "" comment "链接地址"
-) character set utf8 comment "频道表";
+#博客留言
 
+drop table if exists od_comment;
+
+create table if not exists od_comment(
+    `id` int(11) unsigned not null auto_increment primary key comment "留言id",
+    `blog_id` int(11) unsigned not null default 0 comment "对应的blog id",
+    `parent_id` int(11) unsigned not null default 0 comment "上级留言id",
+    `root_id` int(11) unsigned not null default 0 comment "最顶级的留言id",
+    `name` varchar(200) not null default "" comment "留言名字",
+    `email`  varchar(200) not null default "" comment "留言者email",
+    `body` text null comment "留言内容",
+    `cdate` int(11) unsigned not null default 0 comment "留言时间"
+) character set utf8 comment "留言";
 

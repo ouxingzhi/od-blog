@@ -8,7 +8,7 @@
                  <div id="error-box" style="text-align:left">
                      <?=$this->g('error-message');?>
                  </div>
-                 <form method="post" action="<?=$this->g('web_root','/')?>admin/blog/<?=$this->g('type','add')?>">
+                 <form method="post" action="<?=$this->g('app_root','/')?>blog/<?=$this->g('type','add')?>">
                  <table class="blog-edit">
                      <tr>
                          <th class="c1">标题：</th>

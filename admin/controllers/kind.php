@@ -16,7 +16,7 @@ class Kind extends AdminController{
         }
         //如果未登录则跳登录页
         if(!$this->isLogin()){
-            $this->getResponse()->location('/admin/login');
+            $this->getResponse()->location($this->get('app_root') . 'login');
             return true;
         }
     }
@@ -48,7 +48,7 @@ class Kind extends AdminController{
                 return true;  
             }else{
                 $this->addKind($data);
-                $this->getView()->alert('添加成功！',$this->get('web_root','/') . 'admin/kind/list');
+                $this->getView()->alert('添加成功！',$this->get('app_root','/') . 'kind/list');
                 return false;
             }
         }
@@ -99,12 +99,12 @@ class Kind extends AdminController{
         if($action){
             $data = $this->getPostData();
             $this->updateKind($data);
-            $this->getView()->alert('修改成功！',$this->get('web_root','/').'admin/kind/list');
+            $this->getView()->alert('修改成功！',$this->get('app_root','/').'kind/list');
             return false;
         }else{
             $id = intval($id);
             if(!$id){
-                $this->getView()->alert('参数错误！',$this->get('web_root','/').'admin/kind/list');
+                $this->getView()->alert('参数错误！',$this->get('app_root','/').'kind/list');
                 return false;
             }
             $table = new ArticleKindDefineTable();
@@ -112,7 +112,7 @@ class Kind extends AdminController{
                 ArticleKindDefineTable::ID=>$id
             ));
             if(!$data){
-                $this->getView()->alert('参数错误！',$this->get('web_root','/').'admin/kind/list');
+                $this->getView()->alert('参数错误！',$this->get('app_root','/').'kind/list');
                 return false;
             }
             $this->assign('type','edit');

@@ -8,7 +8,7 @@ class Logout extends AdminController{
 
 	public function indexAction(){
         $this->logout();
-        $this->getResponse()->location($this->get('web_root','/') . 'admin/login');
+        $this->getResponse()->location($this->get('app_root','/') . 'login');
         return true;
 	}
 }

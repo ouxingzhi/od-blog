@@ -8,7 +8,7 @@
                  <div id="error-box" style="text-align:left">
                      <?=$this->g('error-message');?>
                  </div>
-                 <form method="post" action="<?=$this->g('web_root','/')?>admin/kind/<?=$this->g('type','add')?>">
+                 <form method="post" action="<?=$this->g('app_root','/')?>kind/<?=$this->g('type','add')?>">
                  <table class="kink-edit">
                      <tr>
                          <th class="c1">名称：</th>

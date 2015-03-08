@@ -1,4 +1,4 @@
-<form id="loginform" method="post" action="<?=$this->get('web_root','/');?>admin/login">
+<form id="loginform" method="post" action="<?=$this->get('app_root','/');?>login">
 <div class="login">
     <div class="login-title">登录</div>
     <div class="login-username"><span>用户名:</span><input type="text" id="username" name="username" /></div>

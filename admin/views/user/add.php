@@ -8,7 +8,7 @@
                  <div id="error-box" style="text-align:left">
                      <?=$this->g('error-message');?>
                  </div>
-                 <form method="post" action="<?=$this->g('web_root','/')?>admin/user/<?=$this->g('type','add')?>">
+                 <form method="post" action="<?=$this->g('app_root','/')?>user/<?=$this->g('type','add')?>">
                  <table class="edit user-add">
                      <tr>
                          <th class="c1">用户名：</th>

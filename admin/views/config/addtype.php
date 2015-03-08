@@ -9,9 +9,9 @@
                      <?=$this->g('error-message');?>
                  </div>
                  <div>
-                    <input type="button" value="返回" onclick="location.href='<?=$this->g('web_root','/')?>admin/config/typelist'"/>
+                    <input type="button" value="返回" onclick="location.href='<?=$this->g('app_root','/')?>config/typelist'"/>
                 </div>
-                 <form method="post" action="<?=$this->g('web_root','/')?>admin/config/<?=$this->g('type','addtype')?>">
+                 <form method="post" action="<?=$this->g('app_root','/')?>config/<?=$this->g('type','addtype')?>">
                  <table class="">
                      <tr>
                          <th class="c1">类型名称：</th>

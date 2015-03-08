@@ -6,6 +6,7 @@ use OdBlog\Table\ConfigTable;
 use OdBlog\Model\ConfigModel;
 use OdBlog\Table\ConfigKindTable;
 use OdBlog\Model\ConfigKindModel;
+use Fw\Utils\LogCache;
 
 
 class Config extends AdminController{
@@ -19,7 +20,7 @@ class Config extends AdminController{
         }
         //如果未登录则跳登录页
         if(!$this->isLogin()){
-            $this->getResponse()->location('/admin/login');
+            $this->getResponse()->location($this->get('app_root') . 'login');
             return true;
         }
     }
@@ -55,6 +56,11 @@ class Config extends AdminController{
     public function addAction(){
         $table = new ConfigKindTable();
         $kindlist = $table->find('*',null,sprintf("`%s` DESC,`%s` DESC",ConfigKindTable::SORT,ConfigKindTable::ID));
+        if(empty($kindlist)){
+            $this->getView()->alert('没有配置分类，将跳转到添加配置分类页!',$this->get('app_root','/').'config/addtype');
+            return false;
+        }
+        $this->assign('typelist',ConfigTable::getTypeDefine());
         $this->assign('kindlist',$kindlist);
         
         $this->assign('type','add');
@@ -70,7 +76,7 @@ class Config extends AdminController{
             }
             
             $this->save($data);
-            $this->getView()->alert('添加配置成功!',$this->get('web_root','/').'admin/config/list');
+            $this->getView()->alert('添加配置成功!',$this->get('app_root').'config/list');
             return false;
         }
         
@@ -81,7 +87,7 @@ class Config extends AdminController{
         $table = new ConfigKindTable();
         $kindlist = $table->find('*',null,sprintf("`%s` DESC,`%s` DESC",ConfigKindTable::SORT,ConfigKindTable::ID));
         $this->assign('kindlist',$kindlist);
-        
+        $this->assign('typelist',ConfigTable::getTypeDefine());
         $this->assign('type','edit');
         
         $type = $this->getRequest()->post('type');
@@ -93,20 +99,20 @@ class Config extends AdminController{
                 $this->assign('data',$data);
                 return 'config/add.php';
             }
-            
+            LogCache::log('edit data',json_encode($data));
             $this->update($data);
-            $this->getView()->alert('修改配置成功!',$this->get('web_root','/').'admin/config/list');
+            $this->getView()->alert('修改配置成功!',$this->get('app_root','/').'config/list');
             return false;
         }
         $id = intval($id);
         if(!$id){
-            $this->getView()->alert('配置不存在!',$this->get('web_root','/').'admin/config/list');
+            $this->getView()->alert('配置不存在!',$this->get('app_root','/').'config/list');
             return false;
         }
         $table = new ConfigTable();
         $data = $table->findOne('*',array(ConfigTable::ID=>$id));
         if(empty($data)){
-            $this->getView()->alert('配置不存在!',$this->get('web_root','/').'admin/config/list');
+            $this->getView()->alert('配置不存在!',$this->get('app_root','/').'config/list');
             return false;
         }
         $this->assign('data',$data);
@@ -118,7 +124,7 @@ class Config extends AdminController{
         $table = new ConfigTable();
         $table->delete(array(ConfigTable::ID=>$id));
         
-        $this->getView()->alert('删除成功!',$this->get('web_root','/').'admin/config/list');
+        $this->getView()->alert('删除成功!',$this->get('app_root','/').'config/list');
         return false;
     }
     public function typelistAction(){
@@ -130,7 +136,7 @@ class Config extends AdminController{
             foreach($ids as $id=>$sort){
                 $table->update(array(ConfigKindTable::SORT=>$sort),array(ConfigKindTable::ID=>$id));
             }
-            $this->getView()->alert('更新排序成功!',$this->get('web_root','/').'admin/config/typelist');
+            $this->getView()->alert('更新排序成功!',$this->get('app_root','/').'config/typelist');
             return false;   
         }
         
@@ -155,7 +161,7 @@ class Config extends AdminController{
             }
             
             $this->saveType($data);
-            $this->getView()->alert('添加配置类型成功!',$this->get('web_root','/').'admin/config/typelist');
+            $this->getView()->alert('添加配置类型成功!',$this->get('app_root','/').'config/typelist');
             return false;
         }
         
@@ -178,12 +184,12 @@ class Config extends AdminController{
             }
             
             $this->updateType($data);
-            $this->getView()->alert('修改配置类型成功!',$this->get('web_root','/').'admin/config/typelist');
+            $this->getView()->alert('修改配置类型成功!',$this->get('app_root','/').'config/typelist');
             return false;
         }
         $id = intval($id);
         if(!$id){
-            $this->getView()->alert('参数错误!',$this->get('web_root','/').'admin/config/typelist');
+            $this->getView()->alert('参数错误!',$this->get('app_root','/').'config/typelist');
             return false;
         }
         $table = new ConfigKindTable();
@@ -191,7 +197,7 @@ class Config extends AdminController{
             ConfigKindTable::ID=>$id
         ));
         if(empty($data)){
-            $this->getView()->alert('参数错误!',$this->get('web_root','/').'admin/config/typelist');
+            $this->getView()->alert('参数错误!',$this->get('app_root','/').'config/typelist');
             return false;
         }
         $this->assign('data',$data);
@@ -201,7 +207,15 @@ class Config extends AdminController{
     public function deltypeAction($id=0){
         $id = intval($id);
         if(!$id){
-            $this->getView()->alert('类型不存在!',$this->get('web_root','/').'admin/config/typelist');
+            $this->getView()->alert('类型不存在!',$this->get('app_root','/').'config/typelist');
+            return false;
+        }
+        $ctable = new ConfigTable();
+        $len = $ctable->countFind(array(
+            ConfigTable::KIND=>$id
+        ));
+        if($len){
+            $this->getView()->alert('该类型存在配置，请先删除这些配置，然后在删除配置类型!',$this->get('app_root','/').'config/typelist');
             return false;
         }
         $table = new ConfigKindTable();
@@ -209,7 +223,12 @@ class Config extends AdminController{
         $table->delete(array(
             ConfigKindTable::ID=>$id
         ));
-        $this->getResponse()->location($this->get('web_root','/').'admin/config/typelist');
+        
+        
+        $ctable->delete(array(
+            ConfigTable::KIND=>$id
+        ));
+        $this->getResponse()->location($this->get('app_root','/').'config/typelist');
         return false;
     }
     private function saveType($data){
@@ -240,6 +259,8 @@ class Config extends AdminController{
         $model->set(ConfigTable::DESC,$data['desc']);
         $model->set(ConfigTable::KIND,$data['kind']);
         $model->set(ConfigTable::SORT,$data['sort']);
+        $model->set(ConfigTable::TYPE,$data['type']);
+        $model->set(ConfigTable::DEFINE,$data['define']);
         
         $model->save();
     }
@@ -253,6 +274,8 @@ class Config extends AdminController{
         $model->set(ConfigTable::DESC,$data['desc']);
         $model->set(ConfigTable::KIND,$data['kind']);
         $model->set(ConfigTable::SORT,$data['sort']);
+        $model->set(ConfigTable::TYPE,$data['type']);
+        $model->set(ConfigTable::DEFINE,$data['define']);
         
         $model->update();
     }
@@ -311,6 +334,12 @@ class Config extends AdminController{
                     'message'=>'配置名称已存在！'
                 );
             }
+            if($data['type'] == ConfigTable::TYPE_SELECT and !preg_match("/\\w+\|\\w+/",$data['define'])){
+               return array(
+                    'code'=>1,
+                    'message'=>'当类型为多选时，请定义类型选项！'
+                ); 
+            }
         }elseif($type === 'edit'){
             if(!$data['key']){
                 return array(
@@ -335,6 +364,12 @@ class Config extends AdminController{
                     'message'=>'配置名称已存在！'
                 );
             }
+            if($data['type'] == ConfigTable::TYPE_SELECT and !preg_match("/\\w+\|\\w+/",$data['define'])){
+               return array(
+                    'code'=>1,
+                    'message'=>'当类型为多选时，请定义类型选项！'
+                ); 
+            }
         }
     }
     private function getPostData(){
@@ -348,6 +383,8 @@ class Config extends AdminController{
         $data['desc'] = trim($req->post('desc'));
         $data['kind'] = trim($req->post('kind'));
         $data['sort'] = trim($req->post('sort'));
+        $data['type'] = trim($req->post('ftype'));
+        $data['define'] = trim($req->post('define'));
         
         return $data;
         

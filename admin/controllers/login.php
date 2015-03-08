@@ -15,7 +15,7 @@ class Login extends AdminController{
         $res = $this->getResponse();
         $session = $this->getSession();
         if($this->isLogin()){
-            $res->location('/admin/index');
+            $res->location($this->get('app_root') . 'index');
             return false;
         }
         
@@ -42,7 +42,7 @@ class Login extends AdminController{
                 return true;  
             }
             $session->set('userinfo',$userinfo);
-            $res->location('/admin/login');
+            $res->location($this->get('app_root') . 'login');
             return false;
         }
         return true;

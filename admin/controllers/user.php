@@ -1,3 +1,4 @@
+
 <?php
 
 use Fw\Core\Controller;
@@ -21,7 +22,7 @@ class User extends AdminController{
         }
         //如果未登录则跳登录页
         if(!$this->isLogin()){
-            $this->getResponse()->location('/admin/login');
+            $this->getResponse()->location($this->get('app_root') . 'login');
             return true;
         }
     }
@@ -59,7 +60,7 @@ class User extends AdminController{
                 return true;
             }
             $this->addUser($data);
-            $this->getView()->alert('添加用户成功',$this->get('web_root','/') . 'admin/user/list');
+            $this->getView()->alert('添加用户成功',$this->get('app_root','/') . 'user/list');
             return false;
         }
         
@@ -76,19 +77,19 @@ class User extends AdminController{
                 return 'user/add.php';
             }
             $this->updateUser($data);
-            $this->getView()->alert('修改用户成功',$this->get('web_root','/') . 'admin/user/list');
+            $this->getView()->alert('修改用户成功',$this->get('app_root','/') . 'user/list');
             return false;
         }
         
         $id = intval($id);
         if(!$id){
-            $this->getView()->alert('用户不存在！',$this->get('web_root','/') . 'admin/user/list');
+            $this->getView()->alert('用户不存在！',$this->get('app_root','/') . 'user/list');
             return false;
         }
         $table = new UserTable(); 
         $data = $table->findOne('*',array(UserTable::ID=>$id));
         if(!$data){
-            $this->getView()->alert('用户不存在！',$this->get('web_root','/') . 'admin/user/list');
+            $this->getView()->alert('用户不存在！',$this->get('app_root','/') . 'user/list');
             return false;
         }
         $this->assign('data',$data);
@@ -107,19 +108,19 @@ class User extends AdminController{
                 return true;
             }
             $this->updatePwd($data);
-            $this->getView()->alert('修改密码成功',$this->get('web_root','/') . 'admin/user/list');
+            $this->getView()->alert('修改密码成功',$this->get('app_root','/') . 'user/list');
             return false;
         }
         
         $id = intval($id);
         if(!$id){
-            $this->getView()->alert('用户不存在！',$this->get('web_root','/') . 'admin/user/list');
+            $this->getView()->alert('用户不存在！',$this->get('app_root','/') . 'user/list');
             return false;
         }
         $table = new UserTable(); 
         $data = $table->findOne('*',array(UserTable::ID=>$id));
         if(!$data){
-            $this->getView()->alert('用户不存在！',$this->get('web_root','/') . 'admin/user/list');
+            $this->getView()->alert('用户不存在！',$this->get('app_root','/') . 'user/list');
             return false;
         }
         $this->assign('data',$data);

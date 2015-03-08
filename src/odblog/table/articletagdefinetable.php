@@ -23,7 +23,7 @@ class ArticleTagDefineTable extends Mysql{
 				static::ID=>'int',
 				static::NAME=>'string',
 				static::SORT=>'int',
-				static::CDATE=>'datetime'
+				static::CDATE=>'int'
 			)
 		);
 	}

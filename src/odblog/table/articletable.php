@@ -34,8 +34,8 @@ class ArticleTable extends Mysql{
                     static::KIND=>'int',
                     static::SUMMARY=>'string',
                     static::UID=>'int',
-                    static::CDATE=>'datetime',
-                    static::EDATE=>'datetime',
+                    static::CDATE=>'int',
+                    static::EDATE=>'int',
                     static::SORT=>'int',
                     static::BODY=>'string'
 			)

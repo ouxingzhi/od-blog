@@ -4,11 +4,11 @@
         <?php $this->insert('left.php');?>
         <div class="container-right">
            <h2 class="column-title">配置类型列表</h2>
-           <form method="post" action="<?=$this->g('web_root','/')?>admin/config/typelist">
+           <form method="post" action="<?=$this->g('app_root','/')?>config/typelist">
             <div class="blog-list" id="list-box">
                <div>
-                <input type="button" value="返回" onclick="location.href='<?=$this->g('web_root','/')?>admin/config/list'"/>
-                <input type="button" onclick="location.href='<?=$this->g('web_root','/')?>admin/config/addtype'" value="添加配置类型"/>
+                <input type="button" value="返回" onclick="location.href='<?=$this->g('app_root','/')?>onfig/list'"/>
+                <input type="button" onclick="location.href='<?=$this->g('app_root','/')?>config/addtype'" value="添加配置类型"/>
             </div>
                 <table class="table-list">
                     <tr>
@@ -49,13 +49,13 @@
         var dom = $(e.currentTarget);
         var id = dom.attr('data-id');
         toast('确定要删除吗！',function(){
-            location.href = "<?=$this->g('web_root','/')?>admin/config/deltype/" + id;
+            location.href = "<?=$this->g('app_root','/')?>config/deltype/" + id;
         });
     });
     listbox.on('click','.edit',function(e){
         var dom = $(e.currentTarget);
         var id = dom.attr('data-id');
-        location.href = "<?=$this->g('web_root','/')?>admin/config/edittype/" + id;
+        location.href = "<?=$this->g('app_root','/')?>config/edittype/" + id;
     });
 </script>
 
