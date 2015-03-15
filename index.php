@@ -9,7 +9,7 @@ use Fw\Core\Application;
 
 $app = new Application(array(
     'applicationPath'=>'./blog/',
-    'defaultController'=>'home',
+    'defaultController'=>'l',
     'database'=>include('./config/database.php'),
     'debug'=>true
 ));

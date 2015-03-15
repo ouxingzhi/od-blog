@@ -12,10 +12,10 @@
                  <table class="blog-edit">
                      <tr>
                          <th class="c1">标题：</th>
-                         <td class="c2"><input class="input" type="text" id="title" name="title" value="<?=$this->g('data.title')?>"></td>
+                         <td class="c2"><input class="input" type="text" id="title" name="title" value="<?=htmlspecialchars($this->g('data.title'))?>"></td>
                      <tr>
                          <th class="c1">英文标题：</th>
-                         <td class="c2"><input class="input" type="text" id="entitle" name="entitle" value="<?=$this->g('data.entitle')?>"></td>
+                         <td class="c2"><input class="input" type="text" id="entitle" name="entitle" value="<?=htmlspecialchars($this->g('data.entitle'))?>"></td>
                      </tr>
                      <tr>
                          <th>分类：</th>
@@ -26,7 +26,7 @@
                                     $kinds = $this->g('kinds',array());
                                         foreach($kinds as $i => $kind):
                                  ?>
-                                 <option value="<?=$kind['id']?>"<?php if($kind['id'] == $this->g('data.kind')):?> selected="true"<?php endif;?>><?=$kind['name']?></option>
+                                 <option value="<?=htmlspecialchars($kind['id'])?>"<?php if($kind['id'] == $this->g('data.kind')):?> selected="true"<?php endif;?>><?=$kind['name']?></option>
                                  <?php endforeach;?>
                              </select>
                          </td>

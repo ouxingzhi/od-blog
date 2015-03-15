@@ -18,6 +18,8 @@ ul,ol,li{ list-style:none; }
 .container-left ul{  padding:5px; }
 .container-right{ padding:20px;}
 
+td,th{ padding:3px; box-sizing:border-box; }
+
 .login{ width:160px; height:240px; position:absolute; left:50%; top:50%; margin-top:-120px; margin-left:-80px; font-size:16px; }
 .login span{ display:block; padding:5px 0px; }
 .login-title{ text-align:center; }
@@ -40,6 +42,8 @@ ul,ol,li{ list-style:none; }
 
 table.blog-edit{ width:100%; table-layout:fixed; }
 table.blog-edit .c1{ width:60px; }
+table.blog-edit .c2{ text-align:left; }
+
 table.blog-edit .input{ margin:0px; width:100%;}
 table.blog-edit textarea{ width:100%; margin:0px; height:300px; }
 table.blog-edit textarea#summary{ height:60px; }
@@ -67,3 +71,5 @@ table.blog-edit textarea#summary{ height:60px; }
 .tc,.table-list .tc{ text-align:center; }
 
 .config-table .c1{ width:60px; text-align:left; }
+
+.bloglist .c2{ text-align:left; }

@@ -38,12 +38,12 @@ use OdBlog\Table\ConfigTable;
                         <td><?=$cf['key']?></td>
                         <td>
                         <?php if($cf['type'] == ConfigTable::TYPE_ONELINE):?>
-                         <input id="value" name="value" value="<?=$this->v($cf,'value')?>"/>
+                         <input name="value[<?=$cf['id']?>]" value="<?=$this->v($cf,'value')?>"/>
                          <?php elseif($cf['type'] == ConfigTable::TYPE_MULTLINE):?>
-                         <textarea id="value" name="value"><?=$this->v($cf,'value')?></textarea>
+                         <textarea name="value[<?=$cf['id']?>]"><?=$this->v($cf,'value')?></textarea>
                          <?php elseif($cf['type'] == ConfigTable::TYPE_SELECT):?>
 
-                         <select id="value" name="value">
+                         <select name="value[<?=$cf['id']?>]">
                         <?php
                             $definestr = $this->v($cf,'define','');
                             $oplines = preg_split("/[\r\n]+/",$definestr);

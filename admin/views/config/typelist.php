@@ -7,7 +7,7 @@
            <form method="post" action="<?=$this->g('app_root','/')?>config/typelist">
             <div class="blog-list" id="list-box">
                <div>
-                <input type="button" value="返回" onclick="location.href='<?=$this->g('app_root','/')?>onfig/list'"/>
+                <input type="button" value="返回" onclick="location.href='<?=$this->g('app_root','/')?>config/list'"/>
                 <input type="button" onclick="location.href='<?=$this->g('app_root','/')?>config/addtype'" value="添加配置类型"/>
             </div>
                 <table class="table-list">

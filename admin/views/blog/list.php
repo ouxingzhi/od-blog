@@ -4,7 +4,7 @@
         <?php $this->insert('left.php');?>
         <div class="container-right">
            <h2 class="column-title">博文列表</h2>
-            <div class="blog-list" id="list-box">
+            <div class="blog-list bloglist" id="list-box">
                <div class="top-button-box">
                     <input type="button" value="添加博文" onclick="location.href='<?=$this->get('app_root','/')?>blog/add'"/>
                 </div>

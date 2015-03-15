@@ -25,7 +25,7 @@ class Config extends AdminController{
         }
     }
     public function listAction($params=''){
-        $ids = $this->getRequest()->post('id');
+        $ids = $this->getRequest()->post('value');
         if(!empty($ids)){
             $ctable = new ConfigTable();
             foreach($ids as $id=>$val){
