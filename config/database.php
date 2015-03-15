@@ -2,7 +2,7 @@
     
     if(defined('MOPAAS_MYSQL24013_NAME')){
         $database = MOPAAS_MYSQL24013_NAME;
-        $host = MOPAAS_MYSQL24013_HOST;
+        $host = MOPAAS_MYSQL24013_HOST . ':' .MOPAAS_MYSQL24013_PORT;
         $user = MOPAAS_MYSQL24013_USERNAME;
         $pass = MOPAAS_MYSQL24013_PASSWORD;
     }else{
