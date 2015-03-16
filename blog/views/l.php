@@ -9,7 +9,7 @@
             if($len):
             foreach($list as $i=>$item):
             ?>
-            <a href="<?=$this->g('app_root','/')?>a/<?=$item['id']?>">
+            <a href="<?=$this->g('app_root','/')?>a/<?=($item['entitle'] ? $item['entitle'] : $item['id'])?>">
             <dl class="art-box">
                 <dt class="art-date"><?=date('Y年m月d日',$this->v($item,'cdate',0))?></dt>
                 <dt class="art-title"><h3><?=$this->v($item,'title')?></h3></dt>

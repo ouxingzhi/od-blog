@@ -16,19 +16,27 @@ class A extends BlogController{
         return true;   
     }
     public function handleRequest($id=''){
-        $id = intval($id);
+        
+        
         
         if(!$id){
             $this->getView()->alert('文章不存在','javascript:history.back()');
             return false;
         }
-        
         $table = new ArticleTable();
-        
-        $article = $table->findOne('*',array(ArticleTable::ID=>$id));
+        if(preg_match('/^[0-9]+$/i',$id)){
+            $id = intval($id);
+            $article = $table->findOne('*',array(ArticleTable::ID=>$id));
+        }else if(preg_match('/^[a-z0-9\-_]+$/i',$id)){
+            $entitle = $id;
+            $article = $table->findOne('*',array(ArticleTable::ENTITLE=>$entitle));
+        }else{
+            $this->getView()->echo404();
+            return false;   
+        }
         
         if(!$article){
-            $this->getView()->alert('文章不存在','javascript:history.back()');
+            $this->getView()->echo404();
             return false;
         }
         

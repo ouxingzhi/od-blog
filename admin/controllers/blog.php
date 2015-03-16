@@ -82,9 +82,7 @@ class Blog extends AdminController{
         $model = new ArticleModel();
         
         $model->set(ArticleTable::TITLE,$data['title']);
-        if(!$data['entitle']){
-            $data['entitle'] = preg_replace('/\s+/','-',PinYin::getFull($data['title']));
-        }
+
         $model->set(ArticleTable::ENTITLE,$data['entitle']);
         $model->set(ArticleTable::KIND,$data['kind']);
         $model->set(ArticleTable::SUMMARY,$data['summary']);
@@ -97,9 +95,7 @@ class Blog extends AdminController{
         $model = new ArticleModel();
         $model->set(ArticleTable::ID,$data['id']);
         $model->set(ArticleTable::TITLE,$data['title']);
-        if(!$data['entitle']){
-            $data['entitle'] = preg_replace('/\s+/','-',PinYin::getFull($data['title']));
-        }
+        
         $model->set(ArticleTable::ENTITLE,$data['entitle']);
         $model->set(ArticleTable::IMAGE,$data['image']);
         $model->set(ArticleTable::KIND,$data['kind']);
@@ -122,6 +118,12 @@ class Blog extends AdminController{
                 'message'=>'标题太长，请保持在2-100个字符范围.'
             );
         }
+        if($data['entitle'] and preg_match('/[^a-z0-9\-_]/i',$data['entitle'])){
+            return array(
+                'errcode'=>1,
+                'message'=>'英文标题包含了特殊字符，请使用这些字符:a-z,0-9,-,_'
+            );
+        }
         if($type == 'add'){
             $articleTable = new ArticleTable();
             $len = $articleTable->countFind(array(
@@ -131,6 +133,39 @@ class Blog extends AdminController{
                 return array(
                     'errcode'=>1,
                     'message'=>'标题已存在！'
+                );
+            }
+            $len = $articleTable->countFind(array(
+                ArticleTable::ENTITLE=>$data['entitle']
+            ));
+            if($len){
+                return array(
+                    'errcode'=>1,
+                    'message'=>'英文标题已存在！'
+                );
+            }
+        }else if($type == 'edit'){
+            $articleTable = new ArticleTable();
+            $len = $articleTable->countFind(array(
+                ArticleTable::TITLE=>$data['title'],
+                'AND',
+                ArticleTable::ID . '<>' . $data['id'],
+            ));
+            if($len){
+                return array(
+                    'errcode'=>1,
+                    'message'=>'标题已存在！'
+                );
+            }
+            $len = $articleTable->countFind(array(
+                ArticleTable::ENTITLE=>$data['entitle'],
+                'AND',
+                ArticleTable::ID . '<>' . $data['id'],
+            ));
+            if($len){
+                return array(
+                    'errcode'=>1,
+                    'message'=>'英文标题已存在！'
                 );
             }
         }
@@ -154,6 +189,10 @@ class Blog extends AdminController{
         $data['summary'] = trim($req->post('summary'));
         $data['kind'] = intval($req->post('kind'));
         $data['body'] = trim($req->post('body'));
+        
+        if(!$data['entitle']){
+            $data['entitle'] = preg_replace('/\s+/','-',PinYin::getFull($data['title']));
+        }
         
         return $data;
     }
@@ -186,7 +225,7 @@ class Blog extends AdminController{
             if($errinfo = $this->verifyPostData($data,'edit')){
                 $this->assign('error-message',$errinfo['message']);
                 $this->assign('data',$data);
-                return true;
+                return 'blog/add.php';
             }
             $this->updateArticle($data);
             $this->getView()->alert("修改完成",$this->get('app_root').'blog/list');

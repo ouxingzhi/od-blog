@@ -14,4 +14,7 @@ class BlogView extends View{
         $this->assign('sleep',$sleep);
         $this->write('ui/alert.php');
     }
+    public function echo404(){
+        $this->write('ui/404.php');    
+    }
 }
