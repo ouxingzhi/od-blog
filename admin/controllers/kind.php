@@ -112,6 +112,7 @@ class Kind extends AdminController{
                 $this->assign('error-message',$errorinfo['message']);
                 $this->assign('data',$data);
                 return 'kind/add.php';
+                
             }
             $this->updateKind($data);
             $this->getView()->alert('修改成功！',$this->get('app_root','/').'kind/list');
