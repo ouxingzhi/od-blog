@@ -14,6 +14,7 @@ $app = new Application(array(
     'database'=>include('../config/database.php'),
     'urlmapping'=>include('./configs/mapping.php'),
     'app_root'=>'/admin/index.php/',
+    'admin_root'=>'/admin/',
     'debug'=>false
 ));
 
