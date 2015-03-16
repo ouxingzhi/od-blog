@@ -1,4 +1,3 @@
-
 <?php
 
 use Fw\Core\Controller;
