@@ -13,7 +13,8 @@ $app = new Application(array(
     'applicationPath'=>__DIR__,
     'database'=>include('../config/database.php'),
     'urlmapping'=>include('./configs/mapping.php'),
-    'app_root'=>'/admin/',
+    'app_root'=>'/admin/index.php/',
+    'admin_root'=>'/admin/',
     'debug'=>false
 ));
 

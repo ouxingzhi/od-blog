@@ -20,7 +20,7 @@
                      </tr>
                  </table>
                  <input type="hidden" name="id" value="<?=$this->g('data.id')?>"/>
-                 <input type="hidden" name="action" value="<?=$this->g('type','add')?>"/>
+                 <input type="hidden" name="type" value="<?=$this->g('type','add')?>"/>
                  </form>
             </div>
         </div>

@@ -1,4 +1,5 @@
 <header class="header clearboth">
+   
     <div class="main-width">
         <h1 class="web-title"><?=$this->get('cfg.web_title')?></h1>
         <div class="web-sub-title"><?=$this->get('cfg.web_sub_title')?></div>
