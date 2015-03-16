@@ -1,0 +1,159 @@
+html,body,h1,h2,h3,h4,h5,ul,ol,li,dl,dt,dd,p{ padding:0px; margin:0px; }
+
+html,body{ height:100%; }
+
+body{ font:14px/1.5em Tahoma,Arial,Roboto,”Droid Sans”,”Helvetica Neue”,”Droid Sans Fallback”,”Heiti SC”,”Hiragino Sans GB”,Simsun,sans-self; color:#333;}
+
+img{ border:0px; }
+
+ul,ol,li{ list-style:none;}
+
+a{ text-decoration:none; }
+a:link,a:visited,a:hover,a:active{ color:#333; }
+
+.clearboth{
+    zoom:1;   
+}
+.clearboth:after{
+    content:''; display:block; height:0px; overflow:hidden; clear:both;   
+}
+
+/* layout */
+.container{
+    
+}
+
+.header{
+    background:#336699;min-height:6em; padding-left:20px; position:relative;
+}
+
+.header .web-title{ color:#fff; padding:.5em 0 .3em; font-size:18px;  }
+.header .web-sub-title{  padding:0em 0 .5em; color:#eee; }
+
+.header .over-layer{ position:fixed; top:2em; left:2em; background:#336699; border-radius:1em; color:#fff; }
+.header .over-layer a{ float:left; color:#fff; padding:.5em;}
+
+.header .main-menu{ position:absolute; left:2em; bottom:0px; }
+.header .main-menu li{ float:left;   }
+
+.header .main-menu li a{ display:block; height:2em; line-height:2em; color:#eee; }
+
+.header .main-back{ display:none; }
+
+.content{
+    
+}
+
+.content .left{
+    float:left; width:70%; padding:2em 1em 3em 3em; box-sizing:border-box;  
+}
+
+.content .right{
+    float:right; width:30%; box-sizing:border-box; padding:3em;
+}
+
+.main-width{
+    margin:auto;
+    max-width:1000px;
+    position:relative;
+    min-height:6em;
+}
+
+.art-box dt,.art-box dd{ padding:5px 0px; box-sizing:border-box; }
+
+.art-title{ 
+    color:#99CCFF;
+}
+.art-summary{
+    line-height:1.8em;
+}
+
+.footer{
+    
+}
+
+.bh1em,.bh2em,.bh3em,.bh4em{ display:block; }
+.bh1em{ height:1em; }
+.bh2em{ height:2em; }
+.bh3em{ height:3em; }
+.bh4em{ height:4em; }
+
+.left-black-title{
+    color:#99CCFF;
+}
+
+.left-black-cont{ padding:.5em; }
+
+.kindlist{ line-height:2em; }
+.kindlist .cur a{ color:#000; font-weight:bold; }
+
+.pagebar{ text-align:center; padding-top:30px;}
+
+.pagebar table{ margin:auto; }
+
+.pagebar ul{ float:left; }
+
+.pagebar ul li{ float:left; display:inline; margin:.5em;}
+
+.pagebar ul li.cur{ color:#99CCFF; }
+
+.article-title{ text-align:center; line-height:1.5em; padding:1em}
+.article-info{ text-align:center; padding:0 0  1em; }
+.article-body{ padding:0 2em 2em; line-height:2em;}
+
+.list{ width:100%; overflow:hidden; }
+
+.list a{ display:block; }
+
+.article-body img{ max-width:100%;}
+
+.comments{ padding:0 2em 2em; }
+.comments-list{ padding:1em; }
+.comments-list dt{ font-weight:bold; color:#000; }
+.comments-list dd{ padding-left:1em; }
+.comments-list dl{ padding-bottom:1em; }
+
+.comments-post{ padding:0 2em 2em; }
+
+.page-404{ text-align:center; font-size:3em; line-height:1.5em;}
+
+/* 小于670的情况 */
+@media screen and (max-width:670px){
+    .content .left{
+        padding:1em 1em;
+    }
+    .content .right{
+        padding:1em 1em;
+    }
+    
+    .article-body{
+        padding-left:0; padding-right:0;   
+    }
+
+}
+
+/* 小于400的情况 */
+@media screen and (max-width:450px){
+    .article-title{ text-align:center; }
+    .content .left{
+        float:none; width:auto;padding:2em;
+    }
+    .content .right{
+        float:none; width:auto;padding:2em;
+    }
+    .header{ padding-left:60px; min-height:60px; }
+    .header .main-menu{ display:none; }
+    .header .main-back{ display:block; text-indent:-999px; overflow:hidden; position:absolute; left:-60px; top:0px; color:#fff; height:100%; width:60px;}
+    .header .main-back:after,.header .main-back:before{ content:''; display:block; position:absolute;border-color:#fff;font-size:0px;}
+    .header .main-back:after{ left:50%; top:50%; margin-left:-30px; margin-top:-10px; border:10px solid #fff; border-color:rgba(255,255,255,0) #fff rgba(255,255,255,0) rgba(255,255,255,0);}
+    .header .main-back:before{ left:50%; top:50%; margin-left:-10px; margin-top:-5px; border:10px solid #fff; border-top:0px; }
+    .comments{ padding-left:0; padding-right:0; }
+}
+
+.content .left .list{
+     
+}
+
+
+
+
