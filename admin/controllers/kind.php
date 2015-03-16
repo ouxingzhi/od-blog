@@ -38,7 +38,8 @@ class Kind extends AdminController{
     }
     public function addAction(){
         
-        $type = $this->getRequest()->post('action');
+
+        $type = $this->getRequest()->post('type');
         $this->assign('type','add');
         if($type){
             $data = $this->getPostData();
@@ -55,7 +56,7 @@ class Kind extends AdminController{
         
         return true;
     }
-    private function verifyData($data){
+    private function verifyData($data,$type){
         if(!$data['name']){
             return array(
                 'code'=>1,
@@ -69,9 +70,18 @@ class Kind extends AdminController{
             );
         }
         $table = new ArticleKindDefineTable();
-        $len = $table->countFind(array(
-            ArticleKindDefineTable::NAME=>$data['name']
-        ));
+        $len = 0;
+        if($type == 'add'){
+            $len = $table->countFind(array(
+                ArticleKindDefineTable::NAME=>$data['name']
+            ));
+        }else if($type == 'edit'){
+            $len = $table->countFind(array(
+                ArticleKindDefineTable::NAME=>$data['name'],
+                'AND',
+                ArticleKindDefineTable::ID . '<>' . $data['id']
+            ));
+        }
         if($len){
             return array(
                 'code'=>1,
@@ -94,10 +104,17 @@ class Kind extends AdminController{
         $model->update();
     }
     public function editAction($id=0){
+        $this->assign('type','edit');
+        $type = $this->getRequest()->post('type');
         
-        $action = $this->getRequest()->post('action');
-        if($action){
+        if($type){
             $data = $this->getPostData();
+            if($errorinfo = $this->verifyData($data,$type)){
+                $this->assign('error-message',$errorinfo['message']);
+                $this->assign('data',$data);
+                return 'kind/add.php';
+                
+            }
             $this->updateKind($data);
             $this->getView()->alert('修改成功！',$this->get('app_root','/').'kind/list');
             return false;
