@@ -44,7 +44,7 @@ class A extends BlogController{
         
         //评论数据
         $commentTable = new CommentTable();
-        $comments = $commentTable->find('*',array(CommentTable::BLOG_ID=>$id),sprintf('%s desc,%s desc',CommentTable::CDATE,CommentTable::ID));
+        $comments = $commentTable->find('*',array(CommentTable::BLOG_ID=>$article['id']),sprintf('%s desc,%s desc',CommentTable::CDATE,CommentTable::ID));
         $this->assign('comments',$comments);
         
         
