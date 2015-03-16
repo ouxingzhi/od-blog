@@ -19,6 +19,7 @@ class AdminController extends Controller{
         parent::__before($controller,$action);
         $this->assign('web_root','/');
         $this->assign('app_root',Config::get('app_root','/'));
+        $this->assign('admin_root',Config::get('admin_root','/'));
         $userinfo = $this->getSession()->get('userinfo');
         $this->assign('userinfo',$userinfo);
         $configs = ConfigDao::getConfigAll();
