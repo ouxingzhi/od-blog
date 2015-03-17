@@ -4,6 +4,7 @@
 use Admin\Controller\AdminController;
 use OdBlog\Table\ArticleKindDefineTable;
 use OdBlog\Model\ArticleKindDefineModel;
+use Fw\Utils\PinYin;
 
 
 class Kind extends AdminController{
@@ -34,6 +35,11 @@ class Kind extends AdminController{
         $data = array();
         $data['id'] = trim($req->post('id'));
         $data['name'] = trim($req->post('name'));
+        $data['enname'] = trim($req->post('enname'));
+        
+        if(!$data['enname']){
+            $data['enname'] = preg_replace('/\s+/','-',PinYin::getFull($data['name']));
+        }
         return $data;
     }
     public function addAction(){
@@ -43,7 +49,7 @@ class Kind extends AdminController{
         $this->assign('type','add');
         if($type){
             $data = $this->getPostData();
-            if($errorinfo = $this->verifyData($data)){
+            if($errorinfo = $this->verifyData($data,$type)){
                 $this->assign('error-message',$errorinfo['message']);
                 $this->assign('data',$data);
                 return true;  
@@ -69,31 +75,72 @@ class Kind extends AdminController{
                 'message'=>'类型名称过长，请保持在1-20个字符长度!'
             );
         }
+        if(!$data['enname']){
+            return array(
+                'code'=>1,
+                'message'=>'英文名称未填写！'
+            );
+        }
+        if(preg_match('/[^a-z0-9\-_]/i',$data['enname'])){
+            return array(
+                'code'=>1,
+                'message'=>'英文名称不合法，请使用：a-z,0-9,-,_'
+            );
+        }
         $table = new ArticleKindDefineTable();
         $len = 0;
         if($type == 'add'){
             $len = $table->countFind(array(
                 ArticleKindDefineTable::NAME=>$data['name']
             ));
+            if($len){
+                return array(
+                    'code'=>1,
+                    'message'=>'类型名称已存在！'
+                );
+            }
+            $len = $table->countFind(array(
+                ArticleKindDefineTable::ENNAME=>$data['enname']
+            ));
+            if($len){
+                return array(
+                    'code'=>1,
+                    'message'=>'英文名称已存在！'
+                );
+            }
         }else if($type == 'edit'){
             $len = $table->countFind(array(
                 ArticleKindDefineTable::NAME=>$data['name'],
                 'AND',
                 ArticleKindDefineTable::ID . '<>' . $data['id']
             ));
+            if($len){
+                return array(
+                    'code'=>1,
+                    'message'=>'类型名称已存在！'
+                );
+            }
+            $len = $table->countFind(array(
+                ArticleKindDefineTable::ENNAME=>$data['enname'],
+                'AND',
+                ArticleKindDefineTable::ID . '<>' . $data['id']
+            ));
+            if($len){
+                return array(
+                    'code'=>1,
+                    'message'=>'英文名称已存在！'
+                );
+            }
         }
-        if($len){
-            return array(
-                'code'=>1,
-                'message'=>'类型名称已存在！'
-            );
-        }
+        
+        
         return false;
     }
     private function addKind($data){
         $model = new ArticleKindDefineModel();
         
         $model->set(ArticleKindDefineTable::NAME,$data['name']);
+        $model->set(ArticleKindDefineTable::ENNAME,$data['enname']);
         $model->save();
     }
     private function updateKind($data){
@@ -101,6 +148,7 @@ class Kind extends AdminController{
         
         $model->set(ArticleKindDefineTable::ID,$data['id']);
         $model->set(ArticleKindDefineTable::NAME,$data['name']);
+        $model->set(ArticleKindDefineTable::ENNAME,$data['enname']);
         $model->update();
     }
     public function editAction($id=0){

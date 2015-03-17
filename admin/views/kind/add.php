@@ -15,6 +15,10 @@
                          <td class="c2"><input class="input" type="text" id="name" name="name" value="<?=$this->g('data.name')?>"></td>
                      </tr>
                      <tr>
+                         <th class="c1">英文名称：</th>
+                         <td class="c2"><input class="input" type="text" id="enname" name="enname" value="<?=$this->g('data.enname')?>"></td>
+                     </tr>
+                     <tr>
                          <th>&nbsp;</th>
                          <td><input type="submit" value="提交"/></td>
                      </tr>

@@ -17,13 +17,30 @@ class L extends BlogController{
     public function handleRequest($param=''){
         $param = new LineUrlParam($param);
         
-        $kind = intval($param->get('kind'));
+        $kind = $param->get('kind');
+        
+        if($kind and preg_match('/[^a-z0-9\-_]/i',$kind)){
+            $this->getView()->echo404();
+            return false;
+        }
         
         $articleTable = new ArticleTable();
         
         $where = array();
         if($kind){
-            $where = array(ArticleTable::KIND=>$kind);
+            if(preg_match('/^[0-9]+$/i',$kind)){
+                $where = array(ArticleTable::KIND=>$kind);
+            }else{
+                $kdTable = new ArticleKindDefineTable();
+                $kindOne = $kdTable->findOne('*',array(ArticleKindDefineTable::ENNAME=>$kind));
+                if($kindOne){
+                    $where = array(ArticleTable::KIND=>$kindOne['id']);
+                    $kind = $kindOne['id'];
+                }else{
+                    $this->getView()->echo404();
+                    return false;   
+                }
+            }
         }
         
         $total = $articleTable->countFind($where,ArticleTable::ID.' DESC');

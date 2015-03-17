@@ -11,7 +11,8 @@
                 <table class="table-list">
                     <tr>
                         <th class="h2">标题</th>
-                        <th class="h3">操作</th>
+                        <th class="h3">英文标题</th>
+                        <th class="h4">操作</th>
                     </tr>
                     <?php
                         $list = $this->g('list');
@@ -20,7 +21,8 @@
                     ?>
                     <tr>
                         <td class="c2"><?=$this->v($r,'name');?></td>
-                        <td class="c3">
+                        <td class="c3"><?=$this->v($r,'enname','&nbsp;');?></td>
+                        <td class="c4">
                             <input data-id="<?=$this->v($r,'id');?>" type="button" value="编辑" class="edit"/>
                             <input data-id="<?=$this->v($r,'id');?>" type="button" value="删除" class="del"/>
                         </td>
@@ -30,7 +32,7 @@
                     ?>
                     <?php else:?>
                     <tr>
-                        <td colspan="2" align="center">无数据</td>
+                        <td colspan="3" align="center">无数据</td>
                     </tr>
                     <?php endif;?>
                 </table>

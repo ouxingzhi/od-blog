@@ -9,6 +9,7 @@ class ArticleKindDefineTable extends Mysql{
     const ID = 'id';
     const NAME = 'name';
     const SORT = 'sort';
+    const ENNAME = 'enname';
     const CDATE = 'cdate';
     
 	/**
@@ -23,6 +24,7 @@ class ArticleKindDefineTable extends Mysql{
 				static::ID=>'int',
 				static::NAME=>'string',
 				static::SORT=>'int',
+                static::ENNAME=>'string',
 				static::CDATE=>'int'
 			)
 		);

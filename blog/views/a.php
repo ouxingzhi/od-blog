@@ -59,7 +59,7 @@
                 $curkind = $this->g('kind');
                 foreach($kindlist as $i=>$kind):
                 ?>
-                    <li <?php if($curkind == $kind['id']):?>class="cur"<?php endif;?> ><a href="<?=$this->get('app_root','/')?>l/<?=$urlparam->build(array('kind'=>$kind['id']),array('page'))?>"><?=$kind['name']?></a></li>
+                    <li <?php if($curkind == $kind['id']):?>class="cur"<?php endif;?> ><a href="<?=$this->get('app_root','/')?>l/<?=$urlparam->build(array('kind'=>$kind['enname']),array('page'))?>"><?=$kind['name']?></a></li>
                 <?php endforeach;?>
                 </ul>
                 </div>
